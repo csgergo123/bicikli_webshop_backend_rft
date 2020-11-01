@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class BicikliController {
     
     @Autowired
@@ -26,11 +26,21 @@ public class BicikliController {
 
 
     // Get all bicikli
-    @GetMapping("/termekek")
+    @GetMapping("/biciklik")
     public Iterable<Bicikli> getAllBicikli() {
         return bicikliRepository.findAll();
     }
 
+    // Get one bicikli
+    @GetMapping("/bicikli/{id}")
+    public ResponseEntity<Bicikli> get(@PathVariable Integer id) {
+        Optional<Bicikli> bicikli = bicikliRepository.findById(id);
+        if (bicikli.isPresent()) {
+            return ResponseEntity.ok(bicikli.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
     /*
 
     @Autowired
