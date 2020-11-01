@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Bicikli;
 import com.example.demo.entities.Kepek;
 import com.example.demo.repositories.BicikliRepository;
+import com.example.demo.repositories.KepekRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,9 @@ public class BicikliController {
     
     @Autowired
     private BicikliRepository bicikliRepository;
+
+    @Autowired
+    private KepekRepository kepekRepository;
 
 
     // Get all bicikli
@@ -111,13 +115,29 @@ public class BicikliController {
         }
     }
 
+    @PostMapping("/bicikli/{id}/kep")
+    public ResponseEntity<Kepek> insertKepek
+            (@PathVariable Integer id,
+             @RequestBody List<Kepek> kepek) {
+        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
+        if (oBicikli.isPresent()) {
+            Bicikli bicikli = oBicikli.get();
+            for (Kepek kep : kepek) {
+                kep.setBicikli(bicikli);
+                Kepek newKep = kepekRepository.save(kep);
+                bicikli.getKepekList().add(newKep);
+                bicikliRepository.save(bicikli);
+            }
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     /*
 
     @Autowired
     private RendelesRepository rendelesRepository;
-
-    @Autowired
-    private KepekRepository kepekRepository;
 
     @Autowired
     private AuthenticatedUser authenticatedUser;
@@ -142,33 +162,6 @@ public class BicikliController {
         Optional<Bicikli> bicikli = bicikliRepository.findById(id);
         if (bicikli.isPresent()) {
             return ResponseEntity.ok(bicikli.get().getMessages());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-            
-    @GetMapping("/{id}/kepeks")
-    public ResponseEntity<Iterable<Kepek>> kepeks
-        (@PathVariable Integer id) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            return ResponseEntity.ok(oBicikli.get().getKepeks());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-        
-    @PostMapping("/{id}/kepeks")
-    public ResponseEntity<Kepek> insertKepek
-        (@PathVariable Integer id, 
-         @RequestBody Kepek kepek) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            Bicikli bicikli = oBicikli.get();
-            Kepek newKepek = kepekRepository.save(kepek);
-            bicikli.getKepeks().add(newKepek);
-            bicikliRepository.save(bicikli);
-            return ResponseEntity.ok(newKepek);
         } else {
             return ResponseEntity.notFound().build();
         }

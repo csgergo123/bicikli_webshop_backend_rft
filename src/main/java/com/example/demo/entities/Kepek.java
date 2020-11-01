@@ -29,8 +29,7 @@ public class Kepek {
     @NotNull
     private String kepUrl;
     
-    @ManyToOne
-    @JoinColumn
-    @JsonIgnore
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "bicikli_id")
     private Bicikli bicikli;
 }
