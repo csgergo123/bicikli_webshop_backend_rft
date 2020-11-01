@@ -7,6 +7,8 @@ import com.example.demo.repositories.KepekRepository;
 
 import java.util.List;
 import java.util.Optional;
+
+import net.minidev.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -120,18 +122,39 @@ public class BicikliController {
             (@PathVariable Integer id,
              @RequestBody List<Kepek> kepek) {
         Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            Bicikli bicikli = oBicikli.get();
-            for (Kepek kep : kepek) {
-                kep.setBicikli(bicikli);
-                Kepek newKep = kepekRepository.save(kep);
-                bicikli.getKepekList().add(newKep);
-                bicikliRepository.save(bicikli);
-            }
-            return ResponseEntity.ok().build();
-        } else {
+        if (!oBicikli.isPresent()) {
             return ResponseEntity.notFound().build();
         }
+        Bicikli bicikli = oBicikli.get();
+        for (Kepek kep : kepek) {
+            kep.setBicikli(bicikli);
+            Kepek newKep = kepekRepository.save(kep);
+            bicikli.getKepekList().add(newKep);
+            bicikliRepository.save(bicikli);
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/bicikli/{id}/kepek")
+    public ResponseEntity<Iterable<Kepek>> modifyKepek
+            (@PathVariable Integer id,
+             @RequestBody List<Kepek> kepek) {
+        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
+        if (!oBicikli.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Bicikli bicikli = oBicikli.get();
+
+        for (Kepek kep: kepek) {
+            if (kep.getId() == null) {
+                kep.setBicikli(bicikli);
+                kepekRepository.save(kep);
+            }
+        }
+
+        bicikli.setKepekList(kepek);
+        bicikliRepository.save(bicikli);
+        return ResponseEntity.ok().build();
     }
 
     /*
@@ -142,48 +165,12 @@ public class BicikliController {
     @Autowired
     private AuthenticatedUser authenticatedUser;
 
-    
-    @PutMapping("/{id}")
-    public ResponseEntity<Bicikli> update
-            (@PathVariable Integer id,
-             @RequestBody Bicikli issue) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            issue.setId(id);
-            return ResponseEntity.ok(bicikliRepository.save(issue));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-            
     @GetMapping("/{id}/rendelesek")
     public ResponseEntity<Iterable<Rendeles>> rendelesek
             (@PathVariable Integer id) {
         Optional<Bicikli> bicikli = bicikliRepository.findById(id);
         if (bicikli.isPresent()) {
             return ResponseEntity.ok(bicikli.get().getMessages());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-        
-    @PutMapping("/{id}/kepeks")
-    public ResponseEntity<Iterable<Kepek>> modifyKepeks
-        (@PathVariable Integer id,
-         @RequestBody List<Kepek> kepeks) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            Bicikli bicikli = oBicikli.get();
-            
-            for (Kepek kepek: kepeks) {
-                if (kepek.getId() == null) {
-                    kepekRepository.save(kepek);
-                }
-            }
-            
-            bicikli.setKepeks(kepeks);
-            bicikliRepository.save(bicikli);
-            return ResponseEntity.ok(kepeks);
         } else {
             return ResponseEntity.notFound().build();
         }
