@@ -50,3 +50,13 @@ VALUES (
   153900,
   "2020-11-01 15:00:40",
   "2020-11-01 15:00:40");
+
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (1, "/mtb1.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (1, "/mtb2.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (1, "/mtb3.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi1.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi2.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi3.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi4.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi5.jpg");
+INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi6.jpg");
