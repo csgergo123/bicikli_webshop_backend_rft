@@ -48,6 +48,18 @@ public class BicikliController {
         return bicikliRepository.save(bicikli);
     }
 
+    // Delete a bicikli
+    @DeleteMapping("/biciki/{id}")
+    public ResponseEntity<Bicikli> delete (@PathVariable Integer id) {
+        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
+        if (oBicikli.isPresent()) {
+            bicikliRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     /*
 
     @Autowired
