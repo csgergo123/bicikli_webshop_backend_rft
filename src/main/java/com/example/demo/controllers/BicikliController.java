@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Bicikli;
+import com.example.demo.entities.Kepek;
 import com.example.demo.repositories.BicikliRepository;
 
 import java.util.List;
@@ -97,6 +98,17 @@ public class BicikliController {
         bicikliRepository.save(bicikli);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/bicikli/{id}/kepek")
+    public ResponseEntity<Iterable<Kepek>> kepeks
+            (@PathVariable Integer id) {
+        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
+        if (oBicikli.isPresent()) {
+            return ResponseEntity.ok(oBicikli.get().getKepekList());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /*
