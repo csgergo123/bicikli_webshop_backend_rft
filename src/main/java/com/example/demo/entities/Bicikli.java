@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,6 +21,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Setter
+@Getter
 public class Bicikli {
 
     @Id
@@ -46,13 +48,13 @@ public class Bicikli {
     @NotNull
     private Float meret;
 
-    @Column
+    @Column(name = "sebesseg_elol")
     @NotNull
-    private int sebesseg_elol;
+    private Integer sebessegElol;
 
-    @Column
+    @Column(name = "sebesseg_hatul")
     @NotNull
-    private int sebesseg_hatul;
+    private Integer sebessegHatul;
 
     @Column
     @NotNull
@@ -72,18 +74,18 @@ public class Bicikli {
 
     @Column
     @NotNull
-    private int keszlet;
+    private Integer keszlet;
 
-    @Column
+    @Column(name = "netto_ar")
     @NotNull
-    private int netto_ar;
+    private Integer nettoAr;
 
-    @Column(updatable = false)
+    @Column(name = "created_at", updatable = false)
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
-    @Column
+    @Column(name = "updated_at")
     @UpdateTimestamp
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
 }

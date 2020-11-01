@@ -52,12 +52,51 @@ public class BicikliController {
     @DeleteMapping("/biciki/{id}")
     public ResponseEntity<Bicikli> delete (@PathVariable Integer id) {
         Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            bicikliRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        } else {
+        if (!oBicikli.isPresent()) {
             return ResponseEntity.notFound().build();
         }
+        bicikliRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    // Update a bicikli
+    @PutMapping("/bicikli/{id}")
+    public ResponseEntity<Bicikli> update
+            (@PathVariable Integer id,
+             @RequestBody Bicikli bicikliDetails) {
+        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
+        if (!oBicikli.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Bicikli bicikli = oBicikli.get();
+        if(bicikliDetails.getLeiras() != null)
+            bicikli.setLeiras(bicikliDetails.getLeiras());
+        if(bicikliDetails.getNev() != null)
+            bicikli.setNev(bicikliDetails.getNev());
+        if(bicikliDetails.getTipus() != null)
+            bicikli.setTipus(bicikliDetails.getTipus());
+        if(bicikliDetails.getMeret() != null)
+            bicikli.setMeret(bicikliDetails.getMeret());
+        if(bicikliDetails.getSebessegElol() != null)
+            bicikli.setSebessegElol(bicikliDetails.getSebessegElol());
+        if(bicikliDetails.getSebessegHatul() != null)
+            bicikli.setSebessegHatul(bicikliDetails.getSebessegHatul());
+        if(bicikliDetails.getSzin() != null)
+            bicikli.setSzin(bicikliDetails.getSzin());
+        if(bicikliDetails.getFek() != null)
+            bicikli.setFek(bicikliDetails.getFek());
+        if(bicikliDetails.getTeleszkop() != null)
+            bicikli.setTeleszkop(bicikliDetails.getTeleszkop());
+        if(bicikliDetails.getVaz() != null)
+            bicikli.setVaz(bicikliDetails.getVaz());
+        if(bicikliDetails.getKeszlet() != null)
+            bicikli.setKeszlet(bicikliDetails.getKeszlet());
+        if(bicikliDetails.getNettoAr() != null)
+            bicikli.setNettoAr(bicikliDetails.getNettoAr());
+        bicikliRepository.save(bicikli);
+
+        return ResponseEntity.noContent().build();
     }
 
     /*
@@ -71,35 +110,6 @@ public class BicikliController {
     @Autowired
     private AuthenticatedUser authenticatedUser;
 
-
-    @GetMapping("")
-    public ResponseEntity<Iterable<Bicikli>> getAll() {
-        User user = authenticatedUser.getUser();
-        User.Role role = user.getRole();
-        if (role.equals(User.Role.ROLE_ADMIN)) {
-            return ResponseEntity.ok(bicikliRepository.findAll());
-        } else {
-            return ResponseEntity.ok(bicikliRepository.findAllByUser(user));
-        }
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<Bicikli> get(@PathVariable Integer id) {
-        Optional<Bicikli> issue = bicikliRepository.findById(id);
-        if (issue.isPresent()) {
-            return ResponseEntity.ok(issue.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    
-    @PostMapping("")
-    public ResponseEntity<Bicikli> post(@RequestBody Bicikli issue) {
-        User user = authenticatedUser.getUser();
-        issue.setUser(user);
-        Bicikli savedBicikli = bicikliRepository.save(issue);
-        return ResponseEntity.ok(savedBicikli);
-    }
     
     @PutMapping("/{id}")
     public ResponseEntity<Bicikli> update
@@ -114,39 +124,12 @@ public class BicikliController {
         }
     }
             
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Bicikli> delete
-            (@PathVariable Integer id) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            bicikliRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-            
     @GetMapping("/{id}/rendelesek")
     public ResponseEntity<Iterable<Rendeles>> rendelesek
             (@PathVariable Integer id) {
         Optional<Bicikli> bicikli = bicikliRepository.findById(id);
         if (bicikli.isPresent()) {
             return ResponseEntity.ok(bicikli.get().getMessages());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-            
-    @PostMapping("/{id}/messages")
-    public ResponseEntity<Message> insertMessage
-            (@PathVariable Integer id,
-             @RequestBody Message message) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            Bicikli bicikli = oBicikli.get();
-            message.setBicikli(bicikli);
-            return ResponseEntity.ok(
-                rendelesRepository.save(message));
         } else {
             return ResponseEntity.notFound().build();
         }
