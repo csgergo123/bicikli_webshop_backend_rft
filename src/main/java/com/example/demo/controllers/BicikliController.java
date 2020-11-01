@@ -41,6 +41,13 @@ public class BicikliController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // Create bicikli
+    @PostMapping("/bicikli")
+    public Bicikli createBicikli(@RequestBody Bicikli bicikli) {
+        return bicikliRepository.save(bicikli);
+    }
+
     /*
 
     @Autowired
