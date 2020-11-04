@@ -3,13 +3,8 @@ package com.example.demo.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import lombok.*;
@@ -87,5 +82,8 @@ public class Bicikli {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "bicikli")
+    private List<Kepek> kepekList;
 
 }
