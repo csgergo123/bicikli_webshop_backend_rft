@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,6 +29,7 @@ public class Kepek {
 
     @Column(name = "kep_url")
     @NotNull
+    @Size(min = 0, max = 255)
     private String kepUrl;
     
     @ManyToOne(fetch=FetchType.LAZY)
