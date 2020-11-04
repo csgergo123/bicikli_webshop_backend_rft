@@ -51,7 +51,7 @@ public class User {
     @Column(nullable = false)
     private String varos;
 
-    @Column(name = "iranyitoaszam", nullable = false)
+    @Column(nullable = false)
     private String iranyitoszam;
 
     @Column(nullable = false)
