@@ -67,6 +67,6 @@ public class User {
     private String ajto;
 
     @OneToMany(mappedBy = "user")
-    private List<Rendeles> rendelesList;
+    private List<Rendeles> rendelesek;
     
 }

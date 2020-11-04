@@ -111,7 +111,7 @@ public class BicikliController {
             (@PathVariable Integer id) {
         Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
         if (oBicikli.isPresent()) {
-            return ResponseEntity.ok(oBicikli.get().getKepekList());
+            return ResponseEntity.ok(oBicikli.get().getKepek());
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -129,7 +129,7 @@ public class BicikliController {
         for (Kepek kep : kepek) {
             kep.setBicikli(bicikli);
             Kepek newKep = kepekRepository.save(kep);
-            bicikli.getKepekList().add(newKep);
+            bicikli.getKepek().add(newKep);
             bicikliRepository.save(bicikli);
         }
         return ResponseEntity.ok().build();
@@ -152,7 +152,7 @@ public class BicikliController {
             }
         }
 
-        bicikli.setKepekList(kepek);
+        bicikli.setKepek(kepek);
         bicikliRepository.save(bicikli);
         return ResponseEntity.ok().build();
     }
