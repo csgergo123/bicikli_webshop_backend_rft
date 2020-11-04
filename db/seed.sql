@@ -60,3 +60,10 @@ INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi3.jpg");
 INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi4.jpg");
 INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi5.jpg");
 INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi6.jpg");
+
+INSERT INTO users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
+	VALUES ("sfesf@gmail.com", "Asd123", 'USER', "Gergő", "Csipkés", "+36705151651", "Magyarország", "Debrecen", "4025", "Kossuth", "11", null, null);
+INSERT INTO users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
+	VALUES ("dfgdfgdfg@gmail.com", "Asd123", 'USER', "Dávid", "Nagy", "+36306861651", "Magyarország", "Debrecen", "4025", "Kavics", "1", null, null);
+INSERT INTO users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
+	VALUES ("vvscsce@gmail.com", "Asd123", 'ADMIN', "Tomi", "Lengyel", "+36705131", "Magyarország", "Debrecen", "4025", "Piac", "15", null, null);
