@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -53,18 +54,22 @@ public class Bicikli {
 
     @Column
     @NotNull
+    @Size(min = 0, max = 255)
     private String szin;
 
     @Column
     @NotNull
+    @Size(min = 0, max = 255)
     private String fek;
 
     @Column
     @NotNull
+    @Size(min = 0, max = 255)
     private String teleszkop;
 
     @Column
     @NotNull
+    @Size(min = 0, max = 255)
     private String vaz;
 
     @Column
