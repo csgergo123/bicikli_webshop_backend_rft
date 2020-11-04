@@ -2,12 +2,10 @@ package com.example.demo.entities;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -16,20 +14,30 @@ import java.util.List;
 @EqualsAndHashCode
 @Setter
 @Getter
-@Table(name="rendelesek")
-public class Rendeles {
+@Table(name="rendeles_tetelek")
+public class RendelesTetel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "created_at", updatable = false)
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+    @Column
+    @NotNull
+    private Integer mennyiseg;
+
+    @Column(name = "netto_ar")
+    @NotNull
+    private Float nettoAr;
+
+    @Column()
+    @NotNull
+    private Integer afa;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="rendeles_id")
+    private Rendeles rendeles;
 
-    @OneToMany(mappedBy = "rendeles")
-    private List<RendelesTetel> tetelek;
+    @ManyToOne
+    @JoinColumn(name="bicikli_id")
+    private Bicikli bicikli;
+
 }
