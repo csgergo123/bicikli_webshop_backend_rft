@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -64,5 +65,8 @@ public class User {
 
     @Column(nullable = false)
     private String ajto;
+
+    @OneToMany(mappedBy = "user")
+    private List<Rendeles> rendelesList;
     
 }
