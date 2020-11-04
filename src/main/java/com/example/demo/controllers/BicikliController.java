@@ -31,24 +31,19 @@ public class BicikliController {
     @Autowired
     private KepekRepository kepekRepository;
 
-    // Create bicikli
-    //@PostMapping("/")
-    //public Bicikli createBicikli(@RequestBody Bicikli bicikli) {
-    //    return bicikliRepository.save(bicikli);
-    //}
 
-    // Delete a bicikli
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Bicikli> delete (@PathVariable Integer id) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (!oBicikli.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        bicikliRepository.deleteById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    // Update a bicikli
+    /** Egy bicikli adatainak a frissítése.
+     *
+     * Használat:
+     * PUT /biciklis/5
+     * {
+     * 	"nev": "Városi tekergő"
+     * }
+     *
+     * @param id A bicikli ID-ja.
+     * @param bicikliDetails JSON formáatumban a módosítandó adatok.
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Bicikli> update
             (@PathVariable Integer id,
@@ -88,18 +83,22 @@ public class BicikliController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}/kepek")
-    public ResponseEntity<Iterable<Kepek>> kepeks
-            (@PathVariable Integer id) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (oBicikli.isPresent()) {
-            return ResponseEntity.ok(oBicikli.get().getKepek());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
-    @PostMapping("/{id}/kep")
+    /** Képek hozzáadása egy biciklihez.
+     *
+     * Használat:
+     * POST /biciklis/2/kepek
+     * [
+     *   {
+     *     "kepUrl": "/new.jpg"
+     *   }
+     * ]
+     *
+     * @param id A bicikli ID-ja.
+     * @param {Array<Object>} kepek Képek url-je egy tömbben.
+     * @return
+     */
+    /*@PostMapping("/{id}/kepek")
     public ResponseEntity<Kepek> insertKepek
             (@PathVariable Integer id,
              @RequestBody List<Kepek> kepek) {
@@ -111,32 +110,10 @@ public class BicikliController {
         for (Kepek kep : kepek) {
             kep.setBicikli(bicikli);
             Kepek newKep = kepekRepository.save(kep);
-            bicikli.getKepek().add(newKep);
+            bicikli.getKepekList().add(newKep);
             bicikliRepository.save(bicikli);
         }
         return ResponseEntity.ok().build();
-    }
-
-    @PutMapping("/{id}/kepek")
-    public ResponseEntity<Iterable<Kepek>> modifyKepek
-            (@PathVariable Integer id,
-             @RequestBody List<Kepek> kepek) {
-        Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
-        if (!oBicikli.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        Bicikli bicikli = oBicikli.get();
-
-        for (Kepek kep: kepek) {
-            if (kep.getId() == null) {
-                kep.setBicikli(bicikli);
-                kepekRepository.save(kep);
-            }
-        }
-
-        bicikli.setKepek(kepek);
-        bicikliRepository.save(bicikli);
-        return ResponseEntity.ok().build();
-    }
+    }*/
 
 }
