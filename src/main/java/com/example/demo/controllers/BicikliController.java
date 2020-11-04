@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/biciklis")
 public class BicikliController {
     
     @Autowired
@@ -31,32 +31,14 @@ public class BicikliController {
     @Autowired
     private KepekRepository kepekRepository;
 
-
-    // Get all bicikli
-    @GetMapping("/biciklik")
-    public Iterable<Bicikli> getAllBicikli() {
-        return bicikliRepository.findAll();
-    }
-
-    // Get one bicikli
-    @GetMapping("/bicikli/{id}")
-    public ResponseEntity<Bicikli> get(@PathVariable Integer id) {
-        Optional<Bicikli> bicikli = bicikliRepository.findById(id);
-        if (bicikli.isPresent()) {
-            return ResponseEntity.ok(bicikli.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     // Create bicikli
-    @PostMapping("/bicikli")
-    public Bicikli createBicikli(@RequestBody Bicikli bicikli) {
-        return bicikliRepository.save(bicikli);
-    }
+    //@PostMapping("/")
+    //public Bicikli createBicikli(@RequestBody Bicikli bicikli) {
+    //    return bicikliRepository.save(bicikli);
+    //}
 
     // Delete a bicikli
-    @DeleteMapping("/biciki/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Bicikli> delete (@PathVariable Integer id) {
         Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
         if (!oBicikli.isPresent()) {
@@ -67,7 +49,7 @@ public class BicikliController {
     }
 
     // Update a bicikli
-    @PutMapping("/bicikli/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Bicikli> update
             (@PathVariable Integer id,
              @RequestBody Bicikli bicikliDetails) {
@@ -106,7 +88,7 @@ public class BicikliController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/bicikli/{id}/kepek")
+    @GetMapping("/{id}/kepek")
     public ResponseEntity<Iterable<Kepek>> kepeks
             (@PathVariable Integer id) {
         Optional<Bicikli> oBicikli = bicikliRepository.findById(id);
@@ -117,7 +99,7 @@ public class BicikliController {
         }
     }
 
-    @PostMapping("/bicikli/{id}/kep")
+    @PostMapping("/{id}/kep")
     public ResponseEntity<Kepek> insertKepek
             (@PathVariable Integer id,
              @RequestBody List<Kepek> kepek) {
@@ -135,7 +117,7 @@ public class BicikliController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/bicikli/{id}/kepek")
+    @PutMapping("/{id}/kepek")
     public ResponseEntity<Iterable<Kepek>> modifyKepek
             (@PathVariable Integer id,
              @RequestBody List<Kepek> kepek) {
@@ -157,23 +139,4 @@ public class BicikliController {
         return ResponseEntity.ok().build();
     }
 
-    /*
-
-    @Autowired
-    private RendelesRepository rendelesRepository;
-
-    @Autowired
-    private AuthenticatedUser authenticatedUser;
-
-    @GetMapping("/{id}/rendelesek")
-    public ResponseEntity<Iterable<Rendeles>> rendelesek
-            (@PathVariable Integer id) {
-        Optional<Bicikli> bicikli = bicikliRepository.findById(id);
-        if (bicikli.isPresent()) {
-            return ResponseEntity.ok(bicikli.get().getMessages());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-     */
 }
