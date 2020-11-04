@@ -32,7 +32,7 @@ public class Kepek {
     @Size(min = 0, max = 255)
     private String kepUrl;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "bicikli_id")
     private Bicikli bicikli;
 }

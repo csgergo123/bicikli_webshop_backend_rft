@@ -89,6 +89,6 @@ public class Bicikli {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "bicikli")
-    private List<Kepek> kepek;
+    private List<Kepek> kepekList;
 
 }
