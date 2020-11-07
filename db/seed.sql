@@ -1,6 +1,6 @@
 USE webshop;
   
-INSERT INTO bicikli (nev, tipus, leiras, meret, sebesseg_elol, sebesseg_hatul, szin, fek, teleszkop, vaz, keszlet, netto_ar, created_at, updated_at)
+INSERT INTO Bicikli (nev, tipus, leiras, meret, sebesseg_elol, sebesseg_hatul, szin, fek, teleszkop, vaz, keszlet, netto_ar, created_at, updated_at)
 VALUES (
   "ROCK MACHINE TORRENT 70-29 XC 2020",
   "MTB",
@@ -17,7 +17,7 @@ VALUES (
   "2020-11-01 14:48:20",
   "2020-11-01 14:48:20");
   
-INSERT INTO bicikli (nev, tipus, leiras, meret, sebesseg_elol, sebesseg_hatul, szin, fek, teleszkop, vaz, keszlet, netto_ar, created_at, updated_at)
+INSERT INTO Bicikli (nev, tipus, leiras, meret, sebesseg_elol, sebesseg_hatul, szin, fek, teleszkop, vaz, keszlet, netto_ar, created_at, updated_at)
 VALUES (
   "CSEPEL BLACKWOOD AMBITION 2019 26-OS VÁROSI NŐI KERÉKPÁR, ACÉL, 1S, 17-ES VÁZMÉRET, GRAFIT",
   "VAROSI",
@@ -34,7 +34,7 @@ VALUES (
   "2020-11-01 14:57:30",
   "2020-11-01 14:57:30");
   
-INSERT INTO bicikli (nev, tipus, leiras, meret, sebesseg_elol, sebesseg_hatul, szin, fek, teleszkop, vaz, keszlet, netto_ar, created_at, updated_at)
+INSERT INTO Bicikli (nev, tipus, leiras, meret, sebesseg_elol, sebesseg_hatul, szin, fek, teleszkop, vaz, keszlet, netto_ar, created_at, updated_at)
 VALUES (
   "CSEPEL TRC 200 2018 28-AS FÉRFI TREKKING KERÉKPÁR, ALU, AGYDINAMÓS, 21S, 19-ES VÁZMÉRET, MATT FEKETE",
   "TREKKING",
@@ -51,19 +51,19 @@ VALUES (
   "2020-11-01 15:00:40",
   "2020-11-01 15:00:40");
 
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (1, "/mtb1.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (1, "/mtb2.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (1, "/mtb3.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi1.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi2.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi3.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi4.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi5.jpg");
-INSERT INTO kepek (bicikli_id, kep_url) VALUES (2, "/varosi6.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (1, "/mtb1.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (1, "/mtb2.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (1, "/mtb3.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (2, "/varosi1.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (2, "/varosi2.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (2, "/varosi3.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (2, "/varosi4.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (2, "/varosi5.jpg");
+INSERT INTO Kepek (bicikli_id, kep_url) VALUES (2, "/varosi6.jpg");
 
-INSERT INTO users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
+INSERT INTO Users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
 	VALUES ("sfesf@gmail.com", "Asd123", 'USER', "Gergő", "Csipkés", "+36705151651", "Magyarország", "Debrecen", "4025", "Kossuth", "11", null, null);
-INSERT INTO users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
+INSERT INTO Users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
 	VALUES ("dfgdfgdfg@gmail.com", "Asd123", 'USER', "Dávid", "Nagy", "+36306861651", "Magyarország", "Debrecen", "4025", "Kavics", "1", null, null);
-INSERT INTO users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
+INSERT INTO Users (email, jelszo, role, keresztnev, vezeteknev, telefonszam, orszag, varos, iranyitoszam, utca, hazszam, emelet, ajto)
 	VALUES ("vvscsce@gmail.com", "Asd123", 'ADMIN', "Tomi", "Lengyel", "+36705131", "Magyarország", "Debrecen", "4025", "Piac", "15", null, null);
