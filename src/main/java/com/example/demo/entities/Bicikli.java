@@ -1,18 +1,14 @@
 package com.example.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.Size;
+
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,6 +17,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@Setter
+@Getter
 public class Bicikli {
 
     @Id
@@ -46,44 +44,51 @@ public class Bicikli {
     @NotNull
     private Float meret;
 
-    @Column
+    @Column(name = "sebesseg_elol")
     @NotNull
-    private int sebesseg_elol;
+    private Integer sebessegElol;
+
+    @Column(name = "sebesseg_hatul")
+    @NotNull
+    private Integer sebessegHatul;
 
     @Column
     @NotNull
-    private int sebesseg_hatul;
-
-    @Column
-    @NotNull
+    @Size(min = 0, max = 255)
     private String szin;
 
     @Column
     @NotNull
+    @Size(min = 0, max = 255)
     private String fek;
 
     @Column
     @NotNull
+    @Size(min = 0, max = 255)
     private String teleszkop;
 
     @Column
     @NotNull
+    @Size(min = 0, max = 255)
     private String vaz;
 
     @Column
     @NotNull
-    private int keszlet;
+    private Integer keszlet;
 
-    @Column
+    @Column(name = "netto_ar")
     @NotNull
-    private int netto_ar;
+    private Integer nettoAr;
 
-    @Column(updatable = false)
+    @Column(name = "created_at", updatable = false)
     @CreationTimestamp
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
-    @Column
+    @Column(name = "updated_at")
     @UpdateTimestamp
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "bicikli")
+    private List<Kepek> kepekList;
 
 }
