@@ -5,16 +5,25 @@ import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @Autowired
     private UserRepository userRepository;
@@ -24,7 +33,7 @@ public class UserController {
      * 
      * @return
      */
-    @GetMapping("/users")
+    @GetMapping("/")
     public Iterable<User> getAllUsers(){
         return userRepository.findAll();
     }
@@ -36,7 +45,7 @@ public class UserController {
      * @return
      * @throws ResourceNotFoundException
      */
-    @GetMapping("users/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUsersById(@PathVariable(value="id") Long userId) throws ResourceNotFoundException {
         User user = userRepository
                 .findById(userId)
@@ -50,8 +59,10 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping("/users")
+    @PostMapping("/")
     public User createUser(@Valid @RequestBody User user){
+        user.setJelszo(passwordEncoder.encode(user.getJelszo()));
+        
         return userRepository.save(user);
     }
 
@@ -63,7 +74,7 @@ public class UserController {
      * @return
      * @throws ResourceNotFoundException
      */
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
         User user = userRepository
                 .findById(userId)
@@ -94,7 +105,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId) throws Exception {
         User user = userRepository
                 .findById(userId)
@@ -105,4 +116,23 @@ public class UserController {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+    
+    @GetMapping("/logout")
+    public String logout() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null) {
+//            new SecurityContextLogoutHandler().logout(request, response, authentication);
+//        }
+//        SecurityContextHolder.getContext().setAuthentication(null);
+//        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        
+        return "logout";
+    }
+    
+    @GetMapping("/logoutsuccess")
+    public String logoutSuccess() throws Exception {
+        return "logout successful";
+    }
+
+
 }
