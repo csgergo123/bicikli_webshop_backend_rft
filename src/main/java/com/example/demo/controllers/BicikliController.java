@@ -83,6 +83,11 @@ public class BicikliController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{id}")
+    public Bicikli create (@RequestBody Bicikli bicikliDetails) {
+        return bicikliRepository.save(bicikliDetails);
+    }
+
 
     /** Képek hozzáadása egy biciklihez.
      *
